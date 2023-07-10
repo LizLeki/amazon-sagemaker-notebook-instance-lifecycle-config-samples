@@ -116,10 +116,11 @@ else:
         print('Notebook idle state set as %s since no sessions detected.' % idle)
 
 if idle:
-    print('Closing idle notebook')
+    nb_name = get_notebook_name()
+    print('Closing idle notebook:' + nb_name)
     client = boto3.client('sagemaker')
     client.stop_notebook_instance(
-        NotebookInstanceName=get_notebook_name()
+        NotebookInstanceName=nb_name
     )
 else:
     print('Notebook not idle. Pass.')
