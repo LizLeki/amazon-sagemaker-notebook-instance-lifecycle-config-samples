@@ -76,7 +76,7 @@ def get_notebook_name():
 def is_idle(last_activity):
     last_activity = datetime.strptime(last_activity,"%Y-%m-%dT%H:%M:%S.%fz")
     if (datetime.now() - last_activity).total_seconds() > time:
-        print('Notebook' + get_notebook_name() + ' is idle. Last activity time = ', last_activity)
+        print('Notebook ' + get_notebook_name() + ' is idle. Last activity time = ', last_activity)
         return True
     else:
         print('Notebook' + get_notebook_name() + ' is not idle. Last activity time = ', last_activity)
