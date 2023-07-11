@@ -79,7 +79,7 @@ def is_idle(last_activity):
         print('Notebook ' + get_notebook_name() + ' is idle. Last activity time = ', last_activity)
         return True
     else:
-        print('Notebook' + get_notebook_name() + ' is not idle. Last activity time = ', last_activity)
+        print('Notebook ' + get_notebook_name() + ' is not idle. Last activity time = ', last_activity)
         return False
 
 # This is hitting Jupyter's sessions API: https://github.com/jupyter/jupyter/wiki/Jupyter-Notebook-Server-API#Sessions-API
