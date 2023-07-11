@@ -67,24 +67,20 @@ if not time:
 if missingConfiguration:
     exit(2)
 
-
-def is_idle(last_activity):
-    last_activity = datetime.strptime(last_activity,"%Y-%m-%dT%H:%M:%S.%fz")
-    if (datetime.now() - last_activity).total_seconds() > time:
-        print('Notebook is idle. Last activity time = ', last_activity)
-        return True
-    else:
-        print('Notebook is not idle. Last activity time = ', last_activity)
-        return False
-
-
 def get_notebook_name():
     log_path = '/opt/ml/metadata/resource-metadata.json'
     with open(log_path, 'r') as logs:
         _logs = json.load(logs)
     return _logs['ResourceName']
-
-print('Monitoring notebook: ' + get_notebook_name())
+    
+def is_idle(last_activity):
+    last_activity = datetime.strptime(last_activity,"%Y-%m-%dT%H:%M:%S.%fz")
+    if (datetime.now() - last_activity).total_seconds() > time:
+        print('Notebook' + get_notebook_name() ' is idle. Last activity time = ', last_activity)
+        return True
+    else:
+        print('Notebook' + get_notebook_name() + ' is not idle. Last activity time = ', last_activity)
+        return False
 
 # This is hitting Jupyter's sessions API: https://github.com/jupyter/jupyter/wiki/Jupyter-Notebook-Server-API#Sessions-API
 response = requests.get('https://localhost:'+port+'/api/sessions', verify=False)
@@ -118,7 +114,7 @@ else:
         print('Notebook idle state set as %s since no sessions detected.' % idle)
 
 if idle:
-    print('Closing idle notebook:' + get_notebook_name())
+    print('Closing idle notebook.')
     client = boto3.client('sagemaker')
     client.stop_notebook_instance(
         NotebookInstanceName=get_notebook_name()
