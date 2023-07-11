@@ -84,6 +84,8 @@ def get_notebook_name():
         _logs = json.load(logs)
     return _logs['ResourceName']
 
+print('Monitoring notebook: ' + get_notebook_name())
+
 # This is hitting Jupyter's sessions API: https://github.com/jupyter/jupyter/wiki/Jupyter-Notebook-Server-API#Sessions-API
 response = requests.get('https://localhost:'+port+'/api/sessions', verify=False)
 data = response.json()
